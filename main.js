@@ -1,8 +1,12 @@
-var app = require("express")();
+var express = require("express");
+var app = express();
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
+var path = require('path');
 const {joinUser, removeUser, printUsers} = require('./users');
+var publicPath = path.resolve(__dirname, 'Public');
 
+app.use(express.static(publicPath)); //Allow access to static files in Public folder
 app.get("/", function (req, res) {
     res.sendFile(__dirname + "/index.html"); //serve index.html
 });
